@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>wssoap</name>
 	<url>http://localhost:8080/wssoap</url>
-
+ 
 	<!-- variables comunes para todo el POM -->
 	<properties>
 		<app.name>wssoap</app.name>

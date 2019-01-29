@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -134,10 +135,25 @@ public class VehiculoController {
 	// Método aún no implementados
 
 	@RequestMapping(value = { "/api/vehiculo/{id}" }, method = RequestMethod.PUT)
-	public ResponseEntity<Coche> modificar(@PathVariable long id, @RequestBody Coche coche) {
+	public ResponseEntity<Coche> modificar(@Valid @PathVariable long id, @RequestBody Coche coche) {
 
-		// TODO terminar
-		return new ResponseEntity<Coche>(HttpStatus.NOT_IMPLEMENTED);
+		ResponseEntity<Coche> response = new ResponseEntity<Coche>(HttpStatus.NOT_FOUND);
+		try {
+			if (cocheDAO.update(coche)) {
+				response = new ResponseEntity<Coche>(coche, HttpStatus.OK);
+				LOG.info("Nuevos valores:  " + coche);
+
+			}
+		} catch (SQLException e) {
+
+			LOG.error("No se ha podido actualizar los datos");
+			response = new ResponseEntity<Coche>(HttpStatus.BAD_REQUEST);
+
+		} catch (Exception e) {
+			LOG.error(e);
+			response = new ResponseEntity<Coche>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return response;
 	}
 
 	@RequestMapping(value = { "/api/vehiculo/{id}" }, method = RequestMethod.PATCH)

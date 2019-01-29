@@ -30,8 +30,8 @@ public class CocheDAO {
 	// constructor privado, solo acceso por getInstance()
 	private CocheDAO() {
 		super();
-	} 
- 
+	}
+
 	public synchronized static CocheDAO getInstance() {
 
 		if (INSTANCE == null) {
@@ -146,25 +146,28 @@ public class CocheDAO {
 	 * @lanzamos sql exception si la matricula ya existe
 	 *
 	 */
-	public boolean update(Coche coche) throws SQLException {
+	public boolean update(Coche coche) throws Exception {
 
 		boolean resul = false;
-		try (Connection conn = ConnectionManager.getConnection();
-				CallableStatement cs = conn.prepareCall(SQL_UPDATE);) {
 
-			cs.setString(1, coche.getModelo());
+		if (coche.getId() < 1) {
+			throw new Exception("Identificador de coche debe ser >= 1");
 
-			cs.setInt(2, coche.getKm());
-			cs.setLong(3, coche.getId());
+		} else {
 
-			int affectedRows = cs.executeUpdate();
-			if (affectedRows == 1) {
+			try (Connection conn = ConnectionManager.getConnection();
+					CallableStatement cs = conn.prepareCall(SQL_UPDATE);) {
 
-				resul = true;
+				cs.setString(1, coche.getModelo());
+				cs.setInt(2, coche.getKm());
+				cs.setLong(3, coche.getId());
+				int affectedRows = cs.executeUpdate();
+				if (affectedRows == 1) {
+					resul = true;
+				}
 			}
-			return resul;
-
 		}
+		return resul;
 
 	}
 

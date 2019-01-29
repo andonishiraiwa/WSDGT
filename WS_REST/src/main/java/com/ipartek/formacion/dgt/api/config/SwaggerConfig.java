@@ -1,6 +1,5 @@
 package com.ipartek.formacion.dgt.api.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +33,7 @@ public class SwaggerConfig {
                                         "",
                                         "1.0",
                                         "",
-                                        new Contact("", "", ""),
+                                        new Contact("Ander Uraga Real", "https://github.com/ipartek/java_2018_0508/tree/master/youtube", "auraga@ipartek.com"),
                                         "Apache License",
                                         "");
         return apiInfo;
