@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 
 public class ConnectionManager {
-
+ 
 	private final static Logger LOG = Logger.getLogger(ConnectionManager.class);
 	private static Connection conn;
 	
